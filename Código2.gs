@@ -1,81 +1,77 @@
-// Limpiar celdas
-function Limpiar() {
+// Netejar cel·les
+function Netejar() {
   var hojaActiva = SpreadsheetApp.getActiveSpreadsheet();
-  var formulario = hojaActiva.getSheetByName("Formulario");
+  var formulari = hojaActiva.getSheetByName("Formulari");
 
-  var celdasALimpiar = ["B3", "B6", "B8", "B10", "D6", "D8", "D10"]; // Celdas a limpiar
-   for (var i=0; i<celdasALimpiar.length; i++){
-     formulario.getRange(celdasALimpiar[i]).clearContent();
-   }
+  var cel·lesANetejar = ["B3", "B6", "B8", "B10", "D6", "D8", "D10"];
+  for (var i = 0; i < cel·lesANetejar.length; i++) {
+    formulari.getRange(cel·lesANetejar[i]).clearContent();
+  }
 }
 
-// Guardar celdas
-function Guardar(){
+// Desar cel·les
+function Desar() {
   var hojaActiva = SpreadsheetApp.getActiveSpreadsheet();
-  var formulario = hojaActiva.getSheetByName("Formulario"); // Nombre de hoja del formulario
-  var datos = hojaActiva.getSheetByName("Datos"); // Nombre de hoja donde se almacenan datos
+  var formulari = hojaActiva.getSheetByName("Formulari");
+  var dades = hojaActiva.getSheetByName("Dades");
 
-  // Celdas de donde se obtendrán los datos a guardar
-  var valores = [[formulario.getRange("B6").getValue(),
-                 formulario.getRange("B8").getValue(),
-                 formulario.getRange("B10").getValue(),
-                 formulario.getRange("D6").getValue(),
-                 formulario.getRange("D8").getValue(),
-                 formulario.getRange("D10").getValue()]];
+  var valors = [[formulari.getRange("B6").getValue(),
+                 formulari.getRange("B8").getValue(),
+                 formulari.getRange("B10").getValue(),
+                 formulari.getRange("D6").getValue(),
+                 formulari.getRange("D8").getValue(),
+                 formulari.getRange("D10").getValue()]];
 
-  // Inyección de datos a hoja donde se almacenan datos
-  datos.getRange(datos.getLastRow()+1,1,1,6).setValues(valores); // El "6" se cambia por cantidad de datos a almacenar
+  dades.getRange(dades.getLastRow() + 1, 1, 1, 6).setValues(valors);
 
-  Limpiar(); // Ejecución de función para limpieza de celdas
+  Netejar();
 }
 
-// Buscar
-var NUM_COLUMNA_BUSQUEDA = 0;
-function Buscar() {
-
+// Cercar
+var NUM_COLUMNA_CERCA = 0;
+function Cercar() {
   var hojaActiva = SpreadsheetApp.getActiveSpreadsheet();
-  var formulario = hojaActiva.getSheetByName("Formulario"); // Nombre de hoja del formulario
- 
-  var valor = formulario.getRange("B3").getValue();
-  var valores = hojaActiva.getSheetByName("Datos").getDataRange().getValues(); // Nombre de hoja donde se almacenan datos
-  for (var i = 0; i < valores.length; i++) {
-     var fila = valores[i];
-    if (fila[NUM_COLUMNA_BUSQUEDA] == valor) {
-      
-      formulario.getRange("B6").setValue(fila[0]);
-      formulario.getRange("B8").setValue(fila[1]);
-      formulario.getRange("B10").setValue(fila[2]);
-      formulario.getRange("D6").setValue(fila[3]);
-      formulario.getRange("D8").setValue(fila[4]);
-      formulario.getRange("D10").setValue(fila[5]);
+  var formulari = hojaActiva.getSheetByName("Formulari");
+
+  var valor = formulari.getRange("B3").getValue();
+  var valors = hojaActiva.getSheetByName("Dades").getDataRange().getValues();
+  for (var i = 0; i < valors.length; i++) {
+    var fila = valors[i];
+    if (fila[NUM_COLUMNA_CERCA] == valor) {
+      formulari.getRange("B6").setValue(fila[0]);
+      formulari.getRange("B8").setValue(fila[1]);
+      formulari.getRange("B10").setValue(fila[2]);
+      formulari.getRange("D6").setValue(fila[3]);
+      formulari.getRange("D8").setValue(fila[4]);
+      formulari.getRange("D10").setValue(fila[5]);
     }
   }
 }
 
-// Actualizar
-function Actualizar(){
+// Actualitzar
+function Actualitzar() {
   var hojaActiva = SpreadsheetApp.getActiveSpreadsheet();
-  var formulario = hojaActiva.getSheetByName("Formulario"); // Nombre de hoja del formulario
-  var datos = hojaActiva.getSheetByName("Datos"); // Nombre de hoja donde se almacenan datos
-  
-  var valor = formulario.getRange("B3").getValue();
-  var valores = hojaActiva.getSheetByName("Datos").getDataRange().getValues(); // Nombre de hoja donde se almacenan datos
-  for (var i = 0; i < valores.length; i++) {
-    var fila = valores[i];
-    if(fila[NUM_COLUMNA_BUSQUEDA] == valor) {
-      var INT_R = i+1
-      
-      var valores1 = [[formulario.getRange("B6").getValue(),
-                      formulario.getRange("B8").getValue(),
-                      formulario.getRange("B10").getValue(),
-                      formulario.getRange("D6").getValue(),
-                      formulario.getRange("D8").getValue(),
-                      formulario.getRange("D10").getValue()]];
-      
-      datos.getRange(INT_R, 1, 1, 6).setValues(valores1);
-      SpreadsheetApp.getUi().alert('Datos actualizados');
+  var formulari = hojaActiva.getSheetByName("Formulari");
+  var dades = hojaActiva.getSheetByName("Dades");
 
-      Limpiar(); // Ejecución de función para limpieza de celdas
+  var valor = formulari.getRange("B3").getValue();
+  var valors = hojaActiva.getSheetByName("Dades").getDataRange().getValues();
+  for (var i = 0; i < valors.length; i++) {
+    var fila = valors[i];
+    if (fila[NUM_COLUMNA_CERCA] == valor) {
+      var INT_F = i + 1;
+
+      var valors1 = [[formulari.getRange("B6").getValue(),
+                      formulari.getRange("B8").getValue(),
+                      formulari.getRange("B10").getValue(),
+                      formulari.getRange("D6").getValue(),
+                      formulari.getRange("D8").getValue(),
+                      formulari.getRange("D10").getValue()]];
+
+      dades.getRange(INT_F, 1, 1, 6).setValues(valors1);
+      SpreadsheetApp.getUi().alert('Dades actualitzades');
+
+      Netejar();
     }
   }
 }
@@ -83,24 +79,21 @@ function Actualizar(){
 // Eliminar
 function Eliminar() {
   var hojaActiva = SpreadsheetApp.getActiveSpreadsheet();
-  var formulario = hojaActiva.getSheetByName("Formulario"); // Nombre de hoja del formulario
-  var datos = hojaActiva.getSheetByName("Datos"); // Nombre de hoja donde se almacenan datos
-  
-  var interface = SpreadsheetApp.getUi();
-  var respuesta = interface.alert('¿Está seguro de borrar?',interface.ButtonSet.YES_NO);
-  
-  // Proceso si el usuario responde
-  if (respuesta == interface.Button.YES) {
-    
-    var valor = formulario.getRange("B3").getValue();
-    var valores = hojaActiva.getSheetByName("Datos").getDataRange().getValues(); // Nombre de hoja donde se almacenan datos
-    for (var i = 0; i< valores.length; i++) {
-      var fila = valores[i];
-      if (fila[NUM_COLUMNA_BUSQUEDA] == valor) {
-        var INT_R = i+1
-        
-        datos.deleteRow(INT_R);
-        Limpiar(); // Ejecución de función para limpieza de celdas
+  var formulari = hojaActiva.getSheetByName("Formulari");
+  var dades = hojaActiva.getSheetByName("Dades");
+
+  var interficie = SpreadsheetApp.getUi();
+  var resposta = interficie.alert('Esteu segur/a que voleu esborrar?', interficie.ButtonSet.YES_NO);
+
+  if (resposta == interficie.Button.YES) {
+    var valor = formulari.getRange("B3").getValue();
+    var valors = hojaActiva.getSheetByName("Dades").getDataRange().getValues();
+    for (var i = 0; i < valors.length; i++) {
+      var fila = valors[i];
+      if (fila[NUM_COLUMNA_CERCA] == valor) {
+        var INT_F = i + 1;
+        dades.deleteRow(INT_F);
+        Netejar();
       }
     }
   }
